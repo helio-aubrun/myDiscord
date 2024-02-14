@@ -10,6 +10,7 @@ class Database:
         )
         self.cursor = self.conn.cursor()
 
+    #execute_query in the table select
     def execute_query(self, query, values=None):
         try:
             self.cursor.execute(query, values)
