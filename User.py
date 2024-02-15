@@ -1,13 +1,20 @@
-import mysql.connector
 from database import Database
 
 class user:
     def __init__(self,db):
        self.db= db
 
+
+def check_email_exists(self, email):
+    query = "SELECT COUNT(*) FROM user WHERE email = %s"
+    count = self.db.execute_query(query, (email,))[0][0]
+    return count >  0
+
 def add_user(self, nom, prenom, pseudo, email, mdp):
+    if self.check_email_exists(email):
+        raise ValueError("email has used.")
     query = "INSERT INTO user (nom, prenom, pseudo, email, mdp, id_channel, admin) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-    values = (nom, prenom, pseudo, email, mdp, 1, 0)
+    values = (nom, prenom, pseudo, email, mdp,  [1],  0)
     self.db.execute_query(query, values)
 
 def delete_user(self, nom, pseudo, email, mdp):
