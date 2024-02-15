@@ -21,3 +21,20 @@ class Message:
         
         query = "DELETE FROM category WHERE id = %s"
         self.db.execute_query(query, (id_message,))
+
+    def get_all_messages(self):
+        query = "SELECT * FROM messsage"
+        results = self.db.execute_query(query)
+        return results
+    
+    def get_messages_user(self, user):
+        query = "SELECT * FROM messsage WHERE id_user = %s"
+        values = (user)
+        results = self.db.execute_query(query, values)
+        return results
+    
+    def get_messages_channel(self, channel):
+        query = "SELECT * FROM messsage WHERE id_channel = %s"
+        values = (channel)
+        results = self.db.execute_query(query, values)
+        return results
