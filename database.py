@@ -18,6 +18,6 @@ class Database:
         except mysql.connector.Error as err:
             print(f"Erreur MySQL: {err}")
 
-    def fetch_all(self, query):
-        self.cursor.execute(query)
+    def fetch_all(self, query, values=None):
+        self.cursor.execute(query, values)
         return self.cursor.fetchall()
