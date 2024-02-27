@@ -1,6 +1,8 @@
 import tkinter as tk
 from login import Login  # Import the custom frame class
 from acount_creation import Acount_creation
+from room import Room
+
 
 class Main(tk.Tk):
     def __init__(self, *args, **kwargs):
@@ -13,7 +15,7 @@ class Main(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (Acount_creation, Login):  # Add the custom frame to the list of frames
+        for F in (Acount_creation, Login, Room):  # Add the custom frame to the list of frames
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
