@@ -2,7 +2,8 @@ import tkinter as tk
 from tkinter import messagebox
 import tkinter as tk
 import login
-import User
+from User import User
+from database import Database
 
 class Acount_creation(tk.Frame):
     def __init__(self, parent, controller):
@@ -22,7 +23,7 @@ class Acount_creation(tk.Frame):
         self.prenom_entry = tk.Entry(self)
         self.prenom_entry.pack()
 
-        pseudo_label = tk.Label(self, text="psudo", fg="#f2f3f5", bg="#313338")
+        pseudo_label = tk.Label(self, text="pseudo", fg="#f2f3f5", bg="#313338")
         pseudo_label.pack()
 
         self.pseudo_entry = tk.Entry(self)
@@ -48,7 +49,7 @@ class Acount_creation(tk.Frame):
         self.password_entry = tk.Entry(self, show="*")
         self.password_entry.pack()"""
 
-        login_button = tk.Button(self, text="Login", command=lambda: self.new_acount (controller), fg="#f2f3f5", bg="#313338")
+        login_button = tk.Button(self, text="inscription", command=lambda: self.new_acount (), fg="#f2f3f5", bg="#313338")
         login_button.pack()
 
         back_button = tk.Button(self, text="Back to Login", command=lambda: self.go_back_to_login(controller), fg="#f2f3f5", bg="#313338")
@@ -57,12 +58,12 @@ class Acount_creation(tk.Frame):
     def go_back_to_login(self, controller):
         controller.show_frame(login.Login)
 
-    def new_acount (self, controller):
+    def new_acount (self):
         if not self.are_fields_filled () :
             messagebox.showerror("Creation echouer", "Veller remplire tous les case.")
         else :
-            new_user = User.user
-            new_user.add_user (self.nom_entry, self.prenom_entry, self.pseudo_entry, self.email_entry, self.mot_de_passe_entry)
+            new_user = User(Database(host="localhost", user="root", password="2879", database="mydiscord"))
+            new_user.add_user (self.nom_entry.get(), self.prenom_entry.get(), self.pseudo_entry.get(), self.email_entry.get(), self.mot_de_passe_entry.get())
     
     def are_fields_filled(self):
         fields = [self.nom_entry, self.prenom_entry, self.pseudo_entry, self.email_entry, self.mot_de_passe_entry]
